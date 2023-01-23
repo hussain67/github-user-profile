@@ -1,0 +1,10 @@
+.login {
+	display: grid;
+	min-height: 100vh;
+	place-content: center;
+	color: blue;
+	&__container {
+		width: 600px;
+		max-width: 90vw;
+	}
+}
