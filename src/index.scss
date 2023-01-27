@@ -1,0 +1,43 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
+
+//Global Style
+*,
+::after,
+::before {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Open Sans", sans-serif;
+	line-height: 1.5;
+}
+ul {
+	list-style-type: none;
+}
+a {
+	text-decoration: none;
+}
+img {
+	width: 100%;
+	display: block;
+}
+h1,
+h2,
+h3,
+h4 {
+	margin-bottom: 0.75rem;
+}
+p {
+	margin-bottom: 1.25rem;
+}
+.container {
+	margin: 0 auto;
+	width: 90vw;
+	max-width: 1170px;
+	@media screen and (min-width: 992px) {
+		width: 95vw;
+	}
+}
