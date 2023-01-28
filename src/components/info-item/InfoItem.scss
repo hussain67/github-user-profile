@@ -1,0 +1,22 @@
+.info-item {
+	background-color: #fff;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: center;
+	column-gap: 3rem;
+	padding: 10px 25px;
+
+	span {
+		height: 3rem;
+		width: 3rem;
+		border-radius: 50%;
+		display: grid;
+		place-content: center;
+	}
+	h3 {
+		margin-bottom: 0px;
+	}
+	p {
+		margin-bottom: 0;
+	}
+}

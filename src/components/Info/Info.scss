@@ -1,0 +1,25 @@
+.info {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 2rem;
+	@media screen and (min-width: 640px) {
+		grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	}
+}
+.pink {
+	background: #ffe0f0;
+	color: #da4a91;
+}
+
+.green {
+	background-color: rgb(218, 245, 218);
+	color: green;
+}
+.blue {
+	color: blue;
+	background-color: rgb(235, 235, 249);
+}
+.yellow {
+	color: rgb(122, 79, 9);
+	background-color: rgb(247, 247, 238);
+}
