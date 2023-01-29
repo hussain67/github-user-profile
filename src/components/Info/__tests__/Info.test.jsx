@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import Info from "./Info";
+import Info from "../Info";
 
 test("Examine the number of items displayed", () => {
 	render(<Info />);

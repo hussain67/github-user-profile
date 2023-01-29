@@ -1,0 +1,14 @@
+.user {
+	display: grid;
+	justify-items: center;
+
+	@media (min-width: 992px) {
+		grid-gap: 2rem;
+		grid-template-columns: 1fr 1fr;
+	}
+	&__card {
+		width: 100%;
+		padding: 25px;
+		background-color: #fff;
+	}
+}

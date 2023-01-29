@@ -5,6 +5,7 @@
 
 :root {
 	--background-color: #f1f5f8;
+	--primary-color: hsl(185, 62%, 45%);
 }
 
 //Global Style
@@ -31,15 +32,13 @@ img {
 	width: 100%;
 	display: block;
 }
-h1,
-h2,
-h3,
-h4 {
-	margin-bottom: 0.5rem;
-}
-p {
-	margin-bottom: 1.25rem;
-}
+// h1,
+// h2,
+// h3,
+// h4,
+// p {
+// }
+
 .container {
 	margin: 0 auto;
 	width: 90vw;
@@ -47,4 +46,7 @@ p {
 	@media screen and (min-width: 992px) {
 		width: 95vw;
 	}
+}
+.page-section {
+	margin-bottom: 30px;
 }

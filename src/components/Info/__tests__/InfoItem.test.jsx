@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import InfoItem from "./InfoItem";
+import InfoItem from "../InfoItem";
 import { GoRepo } from "react-icons/go";
 
 const data = {

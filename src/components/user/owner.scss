@@ -1,0 +1,39 @@
+.owner {
+	&__header {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		img {
+			width: 60px;
+			height: 60px;
+			border-radius: 50%;
+			margin-right: 20px;
+		}
+		a {
+			letter-spacing: 2px;
+			display: flex;
+			align-self: center;
+			color: var(--primary-color);
+			padding: 0.25rem 0.75rem;
+			border-radius: 1rem;
+			border: 2px solid var(--primary-color);
+			margin-bottom: 0;
+			transition: all 0.4s;
+		}
+		a:hover {
+			background-color: var(--primary-color);
+			color: white;
+		}
+	}
+	&__links {
+		p,
+		a {
+			margin-bottom: 0.5rem;
+		}
+		a {
+			color: var(--primary-color);
+		}
+		svg {
+			margin-right: 0.4rem;
+		}
+	}
+}

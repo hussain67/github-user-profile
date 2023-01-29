@@ -1,5 +1,5 @@
 import React from "react";
-import InfoItem from "../info-item/InfoItem";
+import InfoItem from "./InfoItem";
 import { GoRepo, GoGist } from "react-icons/go";
 import { FiUsers, FiUserPlus } from "react-icons/fi";
 import "./Info.scss";
@@ -41,7 +41,7 @@ const items = [
 
 const Info = () => {
 	return (
-		<section className="info">
+		<section className="page-section info">
 			{items.map(data => (
 				<InfoItem
 					{...data}
