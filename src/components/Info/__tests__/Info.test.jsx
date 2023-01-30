@@ -1,9 +1,21 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "../../../../src/test-utils/test-utils";
 
 import Info from "../Info";
 
-test("Examine the number of items displayed", () => {
+const pause = () => {
+	return new Promise(resolve => {
+		setTimeout(() => {
+			resolve();
+		}, 200);
+	});
+};
+test("Examine the number of items displayed", async () => {
 	render(<Info />);
-	const noOfItems = screen.getAllByRole("article");
-	expect(noOfItems).toHaveLength(4);
+
+	await act(async () => {
+		await pause();
+		const noOfItems = await screen.findAllByRole("article");
+
+		expect(noOfItems).toHaveLength(4);
+	});
 });

@@ -25,7 +25,7 @@ const mockUser = {
 	hireable: true,
 	bio: "I create courses that make learning things like JavaScript easy and fun 🔥",
 	twitter_username: null,
-	public_repos: 328,
+	public_repos: 300,
 	public_gists: 67,
 	followers: 29997,
 	following: 31,
