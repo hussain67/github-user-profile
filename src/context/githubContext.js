@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const rootUrl = "https://api.github.com";
 
@@ -17,13 +17,15 @@ const initialUser = {
 };
 
 const GithubProvider = ({ children }) => {
+	const [searchTerm, setSearchTerm] = useState("wesbos");
+
 	const [githubUser, setGithubUser] = useState(initialUser);
 	const [error, setError] = useState(false);
 
 	useEffect(() => {
 		const getUser = async () => {
 			try {
-				const response = await axios.get(`${rootUrl}/users/wesbos`);
+				const response = await axios.get(`${rootUrl}/users/${searchTerm}`);
 
 				if (response) {
 					setGithubUser(response.data);
@@ -33,9 +35,11 @@ const GithubProvider = ({ children }) => {
 			}
 		};
 		getUser();
-	}, []);
-	const value = { githubUser };
+	}, [searchTerm]);
+
+	const value = { githubUser, setSearchTerm };
 	return <githubContext.Provider value={value}>{children}</githubContext.Provider>;
 };
+const useGithubContext = () => useContext(githubContext);
 
-export { GithubProvider };
+export { GithubProvider, useGithubContext };

@@ -15,7 +15,6 @@ test("Examine the number of items displayed", async () => {
 	await act(async () => {
 		await pause();
 		const noOfItems = await screen.findAllByRole("article");
-
 		expect(noOfItems).toHaveLength(4);
 	});
 });
