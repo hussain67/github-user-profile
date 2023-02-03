@@ -10,6 +10,7 @@ const Info = () => {
 	const { githubUser } = useContext(githubContext);
 
 	if (githubUser === undefined) return;
+
 	const { public_repos, followers, following, public_gists } = githubUser;
 	const items = [
 		{

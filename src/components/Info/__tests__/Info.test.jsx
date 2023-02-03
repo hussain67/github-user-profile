@@ -1,20 +1,13 @@
-import { render, screen, act } from "../../../../src/test-utils/test-utils";
+import { render, screen } from "../../../test-utils/test-library-utils";
 
 import Info from "../Info";
 
-const pause = () => {
-	return new Promise(resolve => {
-		setTimeout(() => {
-			resolve();
-		}, 200);
-	});
-};
 test("Examine the number of items displayed", async () => {
 	render(<Info />);
 
-	await act(async () => {
-		await pause();
-		const noOfItems = await screen.findAllByRole("article");
-		expect(noOfItems).toHaveLength(4);
-	});
+	const followers = await screen.findByText(/3000/i);
+	expect(followers).toBeInTheDocument();
+	const noOfItems = await screen.findAllByRole("article");
+
+	expect(noOfItems).toHaveLength(4);
 });

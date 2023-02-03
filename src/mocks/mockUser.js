@@ -27,7 +27,7 @@ const mockUser = {
 	twitter_username: null,
 	public_repos: 300,
 	public_gists: 67,
-	followers: 29997,
+	followers: 3000,
 	following: 31,
 	created_at: "2010-01-04T10:11:44Z",
 	updated_at: "2022-12-14T18:48:17Z"

@@ -1,14 +1,14 @@
-import React from "react";
 import { GoLocation } from "react-icons/go";
 import { MdBusiness } from "react-icons/md";
 import { AiOutlineLink } from "react-icons/ai";
-//import { Link } from "react-router-dom";
-import mockUser from "../../mocks/mockUser";
-import "./owner.scss";
 
-const { avatar_url, name, email, blog, bio, company, location } = mockUser;
+import "./owner.scss";
+import { useGithubContext } from "../../context/githubContext";
 
 const Owner = () => {
+	const { githubUser } = useGithubContext();
+	if (githubUser === undefined) return;
+	const { avatar_url, name, email, blog, bio, company, location } = githubUser;
 	return (
 		<article className="user__card owner">
 			<header className="owner__header">
