@@ -41,7 +41,8 @@ img {
 
 .container {
 	margin: 0 auto;
-	width: 90vw;
+	width: 97vw;
+	height: 100vh;
 	max-width: 1170px;
 	@media screen and (min-width: 992px) {
 		width: 95vw;
@@ -49,4 +50,18 @@ img {
 }
 .page-section {
 	margin-bottom: 30px;
+}
+
+.btn {
+	cursor: pointer;
+	border: 1.5px solid var(--primary-color);
+
+	padding: 8px;
+	background-color: var(--primary-color);
+	border-radius: 5px;
+	color: #fff;
+	&:hover {
+		background-color: #fff;
+		color: black;
+	}
 }

@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Login from "./pages/login/Login";
 import Error from "./pages/error/Error";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Authentication from "./pages/authentication/Authentication";
 
 function App() {
 	return (
@@ -13,9 +13,10 @@ function App() {
 						path="/"
 						element={<Dashboard />}
 					/>
+
 					<Route
-						path="/login"
-						element={<Login />}
+						path="/authentication"
+						element={<Authentication />}
 					/>
 					<Route
 						path="*"

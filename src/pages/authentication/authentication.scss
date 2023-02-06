@@ -1,0 +1,35 @@
+.authentication {
+	display: grid;
+	width: 100%;
+	height: 100%;
+	place-content: center;
+	&-form {
+		width: 425px;
+		padding: 20px 30px;
+		background-color: hsl(185, 69%, 87%);
+		@media (min-width: 768px) {
+			padding: 30px;
+			width: 650px;
+		}
+	}
+}
+.container-btn-submit {
+	width: 222px;
+	margin-bottom: 15px;
+}
+.container-btn-set {
+	width: 230px;
+	@media (min-width: 768px) {
+		margin-left: 150px;
+	}
+}
+.btn-submit {
+	width: 100%;
+	@media (min-width: 768px) {
+		margin-left: 150px;
+	}
+}
+.btn-info {
+	margin-left: 12px;
+	padding: 8px 10px;
+}
