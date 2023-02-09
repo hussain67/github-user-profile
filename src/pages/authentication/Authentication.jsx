@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import FormInput from "./FormInput";
 import validator from "validator";
 import "./authentication.scss";
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth, getUserInfo, signInAuthUserWithEmailAndPassword } from "../../utils/firebase.utils";
 
 const Authentication = () => {
 	const initialInput = {
@@ -13,6 +14,8 @@ const Authentication = () => {
 	const [isRegistered, setIsRegistered] = useState(true);
 	const [input, setInput] = useState(initialInput);
 	const [errors, setErrors] = useState({});
+	const [userInfo, setUserInfo] = useState({ displayName: "" });
+	const { name, email, password, confirmPassword } = input;
 
 	const handleChange = e => {
 		const { name, value } = e.target;
@@ -22,10 +25,8 @@ const Authentication = () => {
 		});
 	};
 	const isFormValid = isRegistered => {
-		const { name, email, password, confirmPassword } = input;
-
 		let errors = {};
-		console.log(errors);
+
 		if (!isRegistered) {
 			if (name.length < 2) {
 				errors.name = "Name should be at least two characters long";
@@ -53,12 +54,40 @@ const Authentication = () => {
 		return Object.keys(errors).length === 0;
 	};
 
-	const handleSubmit = e => {
+	const handleSubmit = async e => {
 		e.preventDefault();
-		console.log("submitted");
-		isFormValid(isRegistered);
-		//if(isFormValid(isRegistered)) return
+		if (!isFormValid(isRegistered)) return;
+		if (!isRegistered) {
+			try {
+				const { user } = await createAuthUserWithEmailAndPassword(email, password);
+
+				setInput(initialInput);
+			} catch (error) {
+				if (error.code === "auth/email-already-in-use") {
+					setErrors({ ...errors, email: "Email is already in use, Try another Email" });
+				}
+				console.log(error.code);
+			}
+		}
+		if (isRegistered) {
+			try {
+				const { user } = await signInAuthUserWithEmailAndPassword(email, password);
+
+				const userData = await getUserInfo(user);
+				setUserInfo(userData);
+				console.log("user info", userData);
+
+				setInput(initialInput);
+			} catch (error) {
+				console.log(error.code);
+				if (error.code === "auth/user-not-found") {
+					setErrors({ ...errors, email: "No user found with this email" });
+				}
+				if (error.code === "auth/wrong-password") setErrors({ ...errors, password: "Password do not match" });
+			}
+		}
 	};
+
 	return (
 		<main className="authentication">
 			<section className="authentication-form">
@@ -85,7 +114,7 @@ const Authentication = () => {
 						label="Password"
 						name="password"
 						type="password"
-						value={input.value}
+						value={input.password}
 						onChange={handleChange}
 						error={errors.password}
 					/>
@@ -99,6 +128,7 @@ const Authentication = () => {
 							error={errors.confirmPassword}
 						/>
 					)}
+
 					<div className="container-btn-submit">
 						<button
 							className="btn btn-submit"

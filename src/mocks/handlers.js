@@ -13,5 +13,9 @@ export const handlers = [
 
 	rest.get("https://api.github.com/users/wesbos/followers", (req, res, ctx) => {
 		return res(ctx.json(mockFollowers));
+	}),
+	rest.post("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword", (req, res, ctx) => {
+		console.log("fine");
+		return res(ctx.json({ createdAt: "32", displayName: "Shahid", email: "hussain.msh67@yahoo.com" }));
 	})
 ];
