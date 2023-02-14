@@ -25,6 +25,7 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
 
 // Create user document
 const db = getFirestore();
+
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
 	// Create a reference and path for the document for the collection "users"
 	const userDocRef = doc(db, "users", userAuth.uid);

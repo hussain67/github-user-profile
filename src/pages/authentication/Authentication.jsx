@@ -3,8 +3,11 @@ import FormInput from "./FormInput";
 import validator from "validator";
 import "./authentication.scss";
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth, getUserInfo, signInAuthUserWithEmailAndPassword } from "../../utils/firebase.utils";
+import { useContext } from "react";
+import { AuthContrext } from "../../context/authContext";
 
 const Authentication = () => {
+	const { setCurrentUser } = useContext(AuthContrext);
 	const initialInput = {
 		name: "",
 		email: "",
@@ -14,7 +17,6 @@ const Authentication = () => {
 	const [isRegistered, setIsRegistered] = useState(true);
 	const [input, setInput] = useState(initialInput);
 	const [errors, setErrors] = useState({});
-	const [userInfo, setUserInfo] = useState({ displayName: "" });
 	const { name, email, password, confirmPassword } = input;
 
 	const handleChange = e => {
@@ -57,9 +59,14 @@ const Authentication = () => {
 	const handleSubmit = async e => {
 		e.preventDefault();
 		if (!isFormValid(isRegistered)) return;
+
 		if (!isRegistered) {
 			try {
 				const { user } = await createAuthUserWithEmailAndPassword(email, password);
+
+				const userWithDisplayName = await createUserDocumentFromAuth(user, { displayName: name });
+				setCurrentUser(userWithDisplayName);
+				//console.log(userWithDisplayName);
 
 				setInput(initialInput);
 			} catch (error) {
@@ -72,14 +79,13 @@ const Authentication = () => {
 		if (isRegistered) {
 			try {
 				const { user } = await signInAuthUserWithEmailAndPassword(email, password);
-
+				//console.log(user);
 				const userData = await getUserInfo(user);
-				setUserInfo(userData);
-				console.log("user info", userData);
+				setCurrentUser(userData);
 
 				setInput(initialInput);
 			} catch (error) {
-				console.log(error.code);
+				//	console.log(error.code);
 				if (error.code === "auth/user-not-found") {
 					setErrors({ ...errors, email: "No user found with this email" });
 				}
@@ -133,6 +139,7 @@ const Authentication = () => {
 						<button
 							className="btn btn-submit"
 							type="submit"
+							data-testid="signup"
 						>
 							{isRegistered ? "Log in" : "Sign up"}
 						</button>
