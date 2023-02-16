@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 // Firebase configuration
@@ -18,6 +18,15 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 
+// Sign In with google
+const provider = new GoogleAuthProvider();
+
+provider.setCustomParameters({
+	prompt: "select_account"
+});
+
+export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
 	if (!email || !password) return;
 	return await createUserWithEmailAndPassword(auth, email, password);
@@ -27,6 +36,7 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
 const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
+	if (!userAuth) return;
 	// Create a reference and path for the document for the collection "users"
 	const userDocRef = doc(db, "users", userAuth.uid);
 
@@ -43,9 +53,9 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
 				createdAt,
 				...additionalInformation
 			});
-			let snapShot = await getDoc(userDocRef);
-
-			return snapShot.data();
+			//let snapShot = await getDoc(userDocRef);
+			return userDocRef;
+			//return snapShot.data();
 		} catch (error) {
 			console.log(error.message);
 		}

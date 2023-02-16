@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import FormInput from "./FormInput";
 import validator from "validator";
 import "./authentication.scss";
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth, getUserInfo, signInAuthUserWithEmailAndPassword } from "../../utils/firebase.utils";
-import { useContext } from "react";
-import { AuthContrext } from "../../context/authContext";
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword, signInWithGooglePopup } from "../../utils/firebase.utils";
+import { useAuthContext } from "../../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 const Authentication = () => {
-	const { setCurrentUser } = useContext(AuthContrext);
+	const { setDisplayName } = useAuthContext();
+	const navigate = useNavigate();
 	const initialInput = {
 		name: "",
 		email: "",
@@ -63,12 +64,10 @@ const Authentication = () => {
 		if (!isRegistered) {
 			try {
 				const { user } = await createAuthUserWithEmailAndPassword(email, password);
-
-				const userWithDisplayName = await createUserDocumentFromAuth(user, { displayName: name });
-				setCurrentUser(userWithDisplayName);
-				//console.log(userWithDisplayName);
-
+				await createUserDocumentFromAuth(user, { displayName: name });
+				setDisplayName(name);
 				setInput(initialInput);
+				navigate("/");
 			} catch (error) {
 				if (error.code === "auth/email-already-in-use") {
 					setErrors({ ...errors, email: "Email is already in use, Try another Email" });
@@ -78,14 +77,10 @@ const Authentication = () => {
 		}
 		if (isRegistered) {
 			try {
-				const { user } = await signInAuthUserWithEmailAndPassword(email, password);
-				//console.log(user);
-				const userData = await getUserInfo(user);
-				setCurrentUser(userData);
-
+				await signInAuthUserWithEmailAndPassword(email, password);
 				setInput(initialInput);
+				navigate("/");
 			} catch (error) {
-				//	console.log(error.code);
 				if (error.code === "auth/user-not-found") {
 					setErrors({ ...errors, email: "No user found with this email" });
 				}
@@ -93,7 +88,10 @@ const Authentication = () => {
 			}
 		}
 	};
-
+	const signInWithGoogle = async () => {
+		await signInWithGooglePopup();
+		navigate("/");
+	};
 	return (
 		<main className="authentication">
 			<section className="authentication-form">
@@ -154,6 +152,10 @@ const Authentication = () => {
 					>
 						{isRegistered ? "Sign up" : "Log In"}
 					</button>
+				</div>
+
+				<div>
+					<button onClick={signInWithGoogle}>Sign up with Google</button>
 				</div>
 			</section>
 		</main>

@@ -1,5 +1,6 @@
 import React from "react";
 import Info from "../../components/Info/Info";
+import NavBar from "../../components/navbar/NavBar";
 import Search from "../../components/search/Search";
 import User from "../../components/user/User";
 import { useGithubContext } from "../../context/githubContext";
@@ -8,10 +9,11 @@ import "./dashboard.scss";
 
 const Dashboard = () => {
 	const { isLoading } = useGithubContext();
-	console.log(isLoading);
+
 	if (isLoading) {
 		return (
 			<main className="">
+				<NavBar />
 				<Search />
 				<img
 					src={loadingImage}
@@ -23,7 +25,7 @@ const Dashboard = () => {
 	}
 	return (
 		<main className="">
-			Dashboard
+			<NavBar />
 			<Search />
 			<Info />
 			<User />
