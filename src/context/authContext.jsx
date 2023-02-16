@@ -8,20 +8,13 @@ const AuthContrext = createContext({
 
 const AuthProvider = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState(null);
-	const [displayName, setDisplayName] = useState("");
+	const [displayName, setDisplayName] = useState(null);
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChangedListner(async user => {
-			if (user) {
-				console.log(user);
-				if (user.displayName) {
-					await createUserDocumentFromAuth(user, { displayName: user.displayName });
-				}
-				const userData = await getUserInfo(user);
-
-				if (userData) {
-					setDisplayName(userData.displayName);
-				}
+			if (user.displayName) {
+				setDisplayName(user.displayName);
+				await createUserDocumentFromAuth(user, { displayName: user.displayName });
 			}
 		});
 		return unsubscribe;

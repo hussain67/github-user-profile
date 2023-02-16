@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import FormInput from "./FormInput";
 import validator from "validator";
 import "./authentication.scss";
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword, signInWithGooglePopup } from "../../utils/firebase.utils";
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth, getUserInfo, signInAuthUserWithEmailAndPassword, signInWithGooglePopup } from "../../utils/firebase.utils";
 import { useAuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 
@@ -77,7 +77,9 @@ const Authentication = () => {
 		}
 		if (isRegistered) {
 			try {
-				await signInAuthUserWithEmailAndPassword(email, password);
+				const { user } = await signInAuthUserWithEmailAndPassword(email, password);
+				const userData = await getUserInfo(user);
+				setDisplayName(userData.displayName);
 				setInput(initialInput);
 				navigate("/");
 			} catch (error) {

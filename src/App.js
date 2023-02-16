@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Error from "./pages/error/Error";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Authentication from "./pages/authentication/Authentication";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
 	return (
@@ -11,7 +12,11 @@ function App() {
 				<Routes>
 					<Route
 						path="/"
-						element={<Dashboard />}
+						element={
+							<PrivateRoute>
+								<Dashboard />
+							</PrivateRoute>
+						}
 					/>
 
 					<Route
