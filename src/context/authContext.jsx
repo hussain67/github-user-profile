@@ -1,5 +1,5 @@
 import { useContext, createContext, useEffect, useState } from "react";
-import { createUserDocumentFromAuth, getUserInfo, onAuthStateChangedListner } from "../utils/firebase.utils";
+import { getUserInfo, onAuthStateChangedListner } from "../utils/firebase.utils";
 
 const AuthContrext = createContext({
 	currentUser: null,
@@ -7,21 +7,32 @@ const AuthContrext = createContext({
 });
 
 const AuthProvider = ({ children }) => {
-	const [currentUser, setCurrentUser] = useState(null);
-	const [displayName, setDisplayName] = useState(null);
+	const [checkingStatus, setCheckingStatus] = useState(true);
+	const [currentUser, setCurrentUser] = useState(false);
+	const [displayName, setDisplayName] = useState("");
 
 	useEffect(() => {
-		const unsubscribe = onAuthStateChangedListner(async user => {
-			if (user.displayName) {
-				setDisplayName(user.displayName);
-				await createUserDocumentFromAuth(user, { displayName: user.displayName });
+		const unsubscribe = onAuthStateChangedListner(user => {
+			if (user) {
+				if (user.displayName) {
+					setDisplayName(user.displayName);
+					setCurrentUser(true);
+				} else {
+					const getDisplayName = async () => {
+						const userData = await getUserInfo(user);
+
+						userData.displayName ? setDisplayName(userData.displayName) : setDisplayName("");
+					};
+					getDisplayName();
+					setCurrentUser(true);
+				}
 			}
+			setCheckingStatus(false);
 		});
 		return unsubscribe;
 	}, []);
-	//console.log(displayName);
 
-	const value = { displayName, setDisplayName, currentUser, setCurrentUser };
+	const value = { checkingStatus, displayName, setDisplayName, currentUser, setCurrentUser };
 	return <AuthContrext.Provider value={value}>{children}</AuthContrext.Provider>;
 };
 const useAuthContext = () => useContext(AuthContrext);

@@ -12,6 +12,7 @@ const Info = () => {
 	if (githubUser === undefined) return;
 
 	const { public_repos, followers, following, public_gists } = githubUser;
+
 	const items = [
 		{
 			id: 1,

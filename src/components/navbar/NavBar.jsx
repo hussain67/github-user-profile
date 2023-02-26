@@ -13,13 +13,14 @@ const NavBar = () => {
 		navigate("/authentication");
 	};
 	return (
-		<div>
-			{displayName && (
-				<>
-					<h1>Welcome : {displayName}</h1>
-					<button onClick={onClickHandler}>Sign Out</button>
-				</>
-			)}
+		<div className="nav-bar">
+			<p>Welcome {displayName && <span className="display-name">: {displayName} </span>}</p>
+			<button
+				onClick={onClickHandler}
+				className="btn"
+			>
+				Sign out
+			</button>
 		</div>
 	);
 };

@@ -10,7 +10,7 @@ const Owner = () => {
 	if (githubUser === undefined) return;
 	const { avatar_url, name, email, blog, bio, company, location } = githubUser;
 	return (
-		<article className="user__card owner">
+		<article className="card owner">
 			<header className="owner__header">
 				<img
 					src={avatar_url}

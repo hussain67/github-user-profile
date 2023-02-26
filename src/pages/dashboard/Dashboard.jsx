@@ -1,6 +1,7 @@
 import React from "react";
 import Info from "../../components/Info/Info";
 import NavBar from "../../components/navbar/NavBar";
+import Repos from "../../components/repos/Repos";
 import Search from "../../components/search/Search";
 import User from "../../components/user/User";
 import { useGithubContext } from "../../context/githubContext";
@@ -29,6 +30,7 @@ const Dashboard = () => {
 			<Search />
 			<Info />
 			<User />
+			<Repos />
 		</main>
 	);
 };

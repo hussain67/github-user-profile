@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import FormInput from "./FormInput";
 import validator from "validator";
 import "./authentication.scss";
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth, getUserInfo, signInAuthUserWithEmailAndPassword, signInWithGooglePopup } from "../../utils/firebase.utils";
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword, signInWithGooglePopup } from "../../utils/firebase.utils";
 import { useAuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 
 const Authentication = () => {
 	const { setDisplayName } = useAuthContext();
 	const navigate = useNavigate();
+	const navigateToHomePage = () => {
+		navigate("/");
+	};
 	const initialInput = {
 		name: "",
 		email: "",
@@ -67,7 +70,7 @@ const Authentication = () => {
 				await createUserDocumentFromAuth(user, { displayName: name });
 				setDisplayName(name);
 				setInput(initialInput);
-				navigate("/");
+				navigateToHomePage();
 			} catch (error) {
 				if (error.code === "auth/email-already-in-use") {
 					setErrors({ ...errors, email: "Email is already in use, Try another Email" });
@@ -77,11 +80,9 @@ const Authentication = () => {
 		}
 		if (isRegistered) {
 			try {
-				const { user } = await signInAuthUserWithEmailAndPassword(email, password);
-				const userData = await getUserInfo(user);
-				setDisplayName(userData.displayName);
+				await signInAuthUserWithEmailAndPassword(email, password);
 				setInput(initialInput);
-				navigate("/");
+				navigateToHomePage();
 			} catch (error) {
 				if (error.code === "auth/user-not-found") {
 					setErrors({ ...errors, email: "No user found with this email" });
@@ -91,8 +92,9 @@ const Authentication = () => {
 		}
 	};
 	const signInWithGoogle = async () => {
-		await signInWithGooglePopup();
-		navigate("/");
+		const { user } = await signInWithGooglePopup();
+		await createUserDocumentFromAuth(user, { displayName: user.displayName });
+		navigateToHomePage();
 	};
 	return (
 		<main className="authentication">
@@ -141,7 +143,7 @@ const Authentication = () => {
 							type="submit"
 							data-testid="signup"
 						>
-							{isRegistered ? "Log in" : "Sign up"}
+							{isRegistered ? "LOG IN" : "SIGN UP"}
 						</button>
 					</div>
 				</form>
@@ -154,10 +156,15 @@ const Authentication = () => {
 					>
 						{isRegistered ? "Sign up" : "Log In"}
 					</button>
-				</div>
 
-				<div>
-					<button onClick={signInWithGoogle}>Sign up with Google</button>
+					<div>
+						<button
+							onClick={signInWithGoogle}
+							className="btn btn-google"
+						>
+							CONTINUE WITH GOOGLE
+						</button>
+					</div>
 				</div>
 			</section>
 		</main>

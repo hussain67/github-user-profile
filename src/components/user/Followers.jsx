@@ -7,7 +7,7 @@ const Followers = () => {
 	const { followers } = useGithubContext();
 	if (followers === undefined) return;
 	return (
-		<article className="user__card followers">
+		<article className="card followers">
 			Followers
 			{followers &&
 				followers.map(follower => {

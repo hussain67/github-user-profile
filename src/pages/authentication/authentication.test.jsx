@@ -1,11 +1,19 @@
 import { render, screen } from "@testing-library/react";
 import Authentication from "./Authentication";
 import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
 
 const user = userEvent.setup();
+const renderAuthentication = () => {
+	render(
+		<BrowserRouter>
+			<Authentication />
+		</BrowserRouter>
+	);
+};
 
-test("It shows inputs and button properly", async () => {
-	render(<Authentication />);
+test.only("It shows inputs and button properly", async () => {
+	renderAuthentication();
 
 	const buttonSet = screen.getByRole("button", { name: /Sign up/i });
 

@@ -1,35 +1,57 @@
 .authentication {
 	display: grid;
-	width: 100%;
-	height: 100%;
+	width: 100vw;
+	height: 100vh;
 	place-content: center;
 	&-form {
 		width: 425px;
 		padding: 20px 30px;
-		background-color: hsl(185, 69%, 87%);
+		background-color: #fff;
 		@media (min-width: 768px) {
 			padding: 30px;
 			width: 650px;
 		}
+		input {
+			height: 35px;
+			margin-bottom: 15px;
+		}
 	}
 }
 .container-btn-submit {
-	width: 222px;
+	//width: 222px;
 	margin-bottom: 15px;
 }
 .container-btn-set {
-	width: 230px;
+	width: 440px;
 	@media (min-width: 768px) {
 		margin-left: 150px;
 	}
 }
 .btn-submit {
 	width: 100%;
+	background-color: rgb(85, 85, 196);
+	&:hover {
+		background-color: rgb(117, 117, 203);
+		color: #fff;
+	}
 	@media (min-width: 768px) {
 		margin-left: 150px;
+		max-width: 440px;
 	}
 }
 .btn-info {
 	margin-left: 12px;
+	margin-bottom: 15px;
 	padding: 8px 10px;
+}
+.btn-google {
+	width: 365px;
+	background-color: rgb(194, 67, 67);
+	&:hover {
+		background-color: rgb(180, 113, 113);
+		color: white;
+	}
+	@media (min-width: 768px) {
+		width: 100%;
+	}
 }

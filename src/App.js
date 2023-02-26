@@ -7,7 +7,7 @@ import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
 	return (
-		<div className="container">
+		<div>
 			<BrowserRouter>
 				<Routes>
 					<Route

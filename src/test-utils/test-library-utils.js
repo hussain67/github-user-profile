@@ -1,5 +1,4 @@
 import { render } from "@testing-library/react";
-
 import { GithubProvider } from "../context/githubContext";
 
 const renderWithContext = (ui, options) => {
