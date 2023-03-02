@@ -1,5 +1,5 @@
 .owner {
-	&__header {
+	&-header {
 		display: grid;
 		grid-template-columns: auto 1fr auto;
 		margin-bottom: 10px;
@@ -25,10 +25,10 @@
 			color: white;
 		}
 	}
-	&__bio {
+	&-bio {
 		margin-bottom: 10px;
 	}
-	&__links {
+	&-links {
 		p,
 		a {
 			margin-bottom: 0.5rem;

@@ -8,10 +8,10 @@ import { useGithubContext } from "../../context/githubContext";
 const Owner = () => {
 	const { githubUser } = useGithubContext();
 	if (githubUser === undefined) return;
-	const { avatar_url, name, email, blog, bio, company, location } = githubUser;
+	const { avatar_url, html_url, name, email, blog, bio, company, location } = githubUser;
 	return (
 		<article className="card owner">
-			<header className="owner__header">
+			<header className="owner-header">
 				<img
 					src={avatar_url}
 					alt="owner-pic"
@@ -20,10 +20,10 @@ const Owner = () => {
 					<h3>{name}</h3>
 					<p>{email}</p>
 				</div>
-				<a href={`https://${blog}`}>Follow</a>
+				<a href={html_url}>Follow</a>
 			</header>
-			<p className="owner__bio">{bio}</p>
-			<div className="owner__links">
+			<p className="owner-bio">{bio}</p>
+			<div className="owner-links">
 				<p>
 					<MdBusiness />
 					{company}
