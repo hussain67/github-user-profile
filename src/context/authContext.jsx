@@ -10,7 +10,6 @@ const AuthProvider = ({ children }) => {
 	const [checkingStatus, setCheckingStatus] = useState(true);
 	const [currentUser, setCurrentUser] = useState(false);
 	const [displayName, setDisplayName] = useState("");
-	console.log("Authcontext-checkingstatus", checkingStatus);
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChangedListner(user => {

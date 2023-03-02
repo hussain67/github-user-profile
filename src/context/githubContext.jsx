@@ -27,7 +27,6 @@ const GithubProvider = ({ children }) => {
 		const getUser = async () => {
 			try {
 				const response = await axios.get(`${rootUrl}/users/${searchTerm}`);
-				console.log("Github provider", response);
 
 				if (response) {
 					setGithubUser(response.data);

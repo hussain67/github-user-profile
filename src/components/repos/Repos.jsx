@@ -46,7 +46,6 @@ const Repos = () => {
 			return b.stars - a.stars;
 		})
 		.slice(0, 2);
-	console.log(mostPopularRepos);
 
 	return (
 		<section className="page-section">
