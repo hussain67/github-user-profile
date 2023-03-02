@@ -45,7 +45,7 @@ const Repos = () => {
 		.sort((a, b) => {
 			return b.stars - a.stars;
 		})
-		.slice(0, 3);
+		.slice(0, 2);
 	console.log(mostPopularRepos);
 
 	return (

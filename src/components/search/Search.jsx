@@ -3,29 +3,33 @@ import { AiOutlineSearch } from "react-icons/ai";
 import "./search.scss";
 import { useGithubContext } from "../../context/githubContext";
 const Search = () => {
-	const { setSearchTerm } = useGithubContext();
+	const { setSearchTerm, error } = useGithubContext();
 	const [searchWord, setSearchWord] = useState("");
 
-	const handleClick = () => {
+	const handleSubmit = e => {
+		e.preventDefault();
 		if (searchWord) setSearchTerm(searchWord);
 	};
 	return (
 		<article className="page-section">
-			<div className="search">
-				<button className="btn btn-icon">{<AiOutlineSearch />}</button>
+			<form
+				className="search"
+				onSubmit={handleSubmit}
+			>
+				<button className="btn-icon">{<AiOutlineSearch />}</button>
 				<input
 					type="text"
 					placeholder="Enter Github User"
 					onChange={e => setSearchWord(e.target.value)}
 					value={searchWord}
 				/>
-				<button
-					className="btn btn-search"
-					onClick={handleClick}
-				>
-					Search
-				</button>
-			</div>
+				<button className="btn btn-search">Search</button>
+			</form>
+			{error && (
+				<div className="search-msg">
+					<h3>No user found with this user name</h3>
+				</div>
+			)}
 		</article>
 	);
 };

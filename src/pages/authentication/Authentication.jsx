@@ -74,6 +74,8 @@ const Authentication = () => {
 			} catch (error) {
 				if (error.code === "auth/email-already-in-use") {
 					setErrors({ ...errors, email: "Email is already in use, Try another Email" });
+				} else {
+					setErrors({ ...errors, msg: "Something wrong, try again!" });
 				}
 				console.log(error.code);
 			}
@@ -82,23 +84,32 @@ const Authentication = () => {
 			try {
 				await signInAuthUserWithEmailAndPassword(email, password);
 				setInput(initialInput);
+
 				navigateToHomePage();
 			} catch (error) {
 				if (error.code === "auth/user-not-found") {
 					setErrors({ ...errors, email: "No user found with this email" });
+				} else if (error.code === "auth/wrong-password") {
+					setErrors({ ...errors, password: "Password do not match" });
+				} else {
+					setErrors({ ...errors, msg: "Something wrong, try again!" });
 				}
-				if (error.code === "auth/wrong-password") setErrors({ ...errors, password: "Password do not match" });
 			}
 		}
 	};
 	const signInWithGoogle = async () => {
-		const { user } = await signInWithGooglePopup();
-		await createUserDocumentFromAuth(user, { displayName: user.displayName });
-		navigateToHomePage();
+		try {
+			const { user } = await signInWithGooglePopup();
+			await createUserDocumentFromAuth(user, { displayName: user.displayName });
+			navigateToHomePage();
+		} catch (error) {
+			setErrors({ ...errors, msg: "Something wrong, try again!" });
+		}
 	};
 	return (
 		<main className="authentication">
 			<section className="authentication-form">
+				{errors && <p className="auth-error">{errors.msg}</p>}
 				<form onSubmit={handleSubmit}>
 					{!isRegistered && (
 						<FormInput

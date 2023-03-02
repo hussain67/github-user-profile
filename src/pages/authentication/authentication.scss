@@ -47,6 +47,7 @@
 .btn-google {
 	width: 365px;
 	background-color: rgb(194, 67, 67);
+	border: 1.5px solid rgb(194, 67, 67);
 	&:hover {
 		background-color: rgb(180, 113, 113);
 		color: white;
@@ -54,4 +55,9 @@
 	@media (min-width: 768px) {
 		width: 100%;
 	}
+}
+.auth-error {
+	text-align: center;
+	color: red;
+	margin-bottom: 15px;
 }

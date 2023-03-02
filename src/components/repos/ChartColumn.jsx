@@ -1,6 +1,5 @@
 import React from "react";
-
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Legend, Label } from "recharts";
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Label } from "recharts";
 
 const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
@@ -26,14 +25,16 @@ const TriangleBar = props => {
 export default function ChartColumn({ data }) {
 	return (
 		<article className="card repos-item">
+			<h2 className="chart-title">Most polular</h2>
+
 			<BarChart
-				width={500}
+				width={370}
 				height={300}
 				data={data}
 				margin={{
 					top: 20,
-					right: 20,
-					left: 20,
+					right: 0,
+					left: 10,
 					bottom: 20
 				}}
 			>

@@ -6,6 +6,7 @@
 :root {
 	--background-color: #f1f5f8;
 	--primary-color: hsl(185, 62%, 45%);
+	--primary-color-light: hsl(185, 55%, 76%);
 }
 
 //Global Style
@@ -32,34 +33,29 @@ img {
 	width: 100%;
 	display: block;
 }
-// h1,
-// h2,
-// h3,
-// h4,
-// p {
-// }
 
 .page-section {
-	margin: 0 auto;
+	margin: 50px auto;
 	width: 90vw;
 
 	max-width: 1170px;
 	@media screen and (min-width: 992px) {
 		width: 95vw;
 	}
-	margin-bottom: 30px;
 }
 
 .btn {
 	cursor: pointer;
 	border: 1.5px solid var(--primary-color);
-
+	letter-spacing: 1.5px;
 	padding: 8px;
 	background-color: var(--primary-color);
 	border-radius: 5px;
 	color: #fff;
+	transition: all 0.5s;
+
 	&:hover {
-		background-color: #fff;
+		background-color: var(--primary-color-light);
 		color: black;
 	}
 }
@@ -71,9 +67,8 @@ img {
 .loading {
 	width: 80px;
 	height: auto;
-	margin: 30px auto;
-
+	margin: 50vh auto 0;
 	@media (min-width: 662px) {
-		width: 150px;
+		width: 125px;
 	}
 }

@@ -25,6 +25,7 @@ function ChartPie({ data }) {
 	//console.log(data);
 	return (
 		<article className="card repos-item">
+			<h2 className="chart-title">Languages</h2>
 			<PieChart
 				width={250}
 				height={250}

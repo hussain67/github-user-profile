@@ -14,8 +14,6 @@ const Dashboard = () => {
 	if (isLoading) {
 		return (
 			<main className="">
-				<NavBar />
-				<Search />
 				<img
 					src={loadingImage}
 					alt="loading"
